@@ -9,15 +9,14 @@ use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Exception\RequestException;
 use Exception;
 use Illuminate\Http\Response;
-use Psr\Http\Message\ResponseInterface;
 
 class Sms{
 
     private static $client=null;
     private $config=array();
     private $response=null;
+    private $response_code=null;
     private $country_code=null;
-    // private $paramsWrapper=[];
     
 
      /**
@@ -41,6 +40,13 @@ class Sms{
         }
         return $this;
     }
+
+    /**
+     * Set country code
+     * 
+     * @param string $country_code
+     * @return $this
+     */
 
     public function countryCode(string $country_code){
         $this->country_code=$country_code;

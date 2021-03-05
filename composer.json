@@ -14,7 +14,7 @@
   "authors": [
     {
       "name": "Bobach22",
-      "email": "l.user2200@gmail.com"
+      "email": "obobir@gmail.com"
     }
   ],
   "minimum-stability": "dev",
@@ -29,7 +29,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Bobach22\\RapidproSms\\Tests\\": "tests/"
+      "Bobach22\\RapidProSms\\Tests\\": "tests/"
     }
   },
   "extra": {
