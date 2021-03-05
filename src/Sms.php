@@ -73,7 +73,7 @@ class Sms{
 
 
             $res=$promise->wait();
-            $this->response_code=$res->getResponseCode();
+            $this->response_code=$this->getResponseCode();
             $this->response=new Response($res->getBody(),$res->getStatusCode(),$res->getHeaders());
 
         }catch(RequestException $e){
@@ -158,10 +158,11 @@ class Sms{
         $prefix='tel:';
          if(is_array($mobile)){
              
-            array_walk($mobile,function(&$value,$key) use($prefix) {
+            array_walk($mobile,function(&$value,$key) use($prefix) {                
                 if(!(strpos($value,$prefix)!==false)){
                 $value=$prefix.$value;
                 }
+
             });
 
          }else{
