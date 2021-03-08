@@ -36,7 +36,7 @@ class Sms{
     protected function createClient()
     {
         if (!self::$client) {
-            self::$client = new Client(['verify'=>false]);
+            self::$client = new Client();
         }
         return $this;
     }
@@ -65,6 +65,13 @@ class Sms{
     public function send($to,$message){
         $this->config['params']['country_code']?$this->addCountryCode($to):$to;
         $headers=$this->config['headers'];
+        
+        foreach($headers as $key=>$value){
+            if($key==='Authorization'){
+                $headers[$key]='Token '.$value;
+            }
+        }
+
         $phone=$this->format($to);
         $payload=json_encode([
             'urns'=>$phone,
@@ -72,7 +79,7 @@ class Sms{
         ]);
 
         try {
-            $request=new Request('POST',$this->config['params']['url'],$headers,$payload);
+            $request=new Request('POST','https://rapidpro.ilhasoft.mobi/api/v2/broadcasts.json',$headers,$payload);
             $promise=$this->getClient()->sendAsync(
                 $request,
             );
