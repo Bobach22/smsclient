@@ -93,7 +93,14 @@ class Sms{
             if ($e->hasResponse()) {
                 $response = $e->getResponse();
                 $this->response=new Response($response->getBody(),$response->getStatusCode(),$response->getHeaders());
+            }else{
+                $response=$e->getHandlerContext();
+                if(isset($response['error'])){
+                    $this->response=new Response(['error'=>$response['error']],500);
+                }
             }
+        }catch(Exception $e){
+            $this->response=new Response(['error'=>$e->getMessage()],500);
         }
         return $this;
     }
