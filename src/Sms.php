@@ -86,7 +86,7 @@ class Sms{
 
 
             $res=$promise->wait();
-            $this->response_code=$this->getResponseCode();
+            $this->response_code=$res->getStatusCode();
             $this->response=new Response($res->getBody(),$res->getStatusCode(),$res->getHeaders());
 
         }catch(RequestException $e){
