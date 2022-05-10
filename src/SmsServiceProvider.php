@@ -1,11 +1,11 @@
 <?php
 
-namespace Bobach22\RapidProSms;
+namespace Bobach22\SmsClient;
 
 use Illuminate\Support\ServiceProvider;
-use Bobach22\RapidProSms\Sms;
+use Bobach22\SmsClient\Sms;
 
-class RapidProSmsServiceProvider extends ServiceProvider
+class SmsServiceProvider extends ServiceProvider
 {
     protected $configName='sms';
 

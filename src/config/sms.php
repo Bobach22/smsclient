@@ -2,10 +2,16 @@
 
 return [
     'headers'=>[
-        'Authorization'=>env('YOUR_TOKEN'),
+        'Authorization'=>'Bearer '.env('SMS_TOKEN'),
         'Content-Type'=>'application/json'
     ],
     'params'=>[
-        'country_code'=>''
+        'country_code'           => env('SMS_COUNTRY_CODE'),
+        'number_key'             => env('SMS_NUMBER_KEY'),
+        'message_key'            => env('SMS_MESSAGE_KEY'),
+        'service_url'            => env('SMS_SERVICE_URL'),
+        'service_bulk_send_url'  => env('SMS_SERVICE_BULK_SEND_URL'),
+        'method'                 => env('SMS_METHOD'),
+        'from'                   => env('SMS_FROM')
     ]
 ];

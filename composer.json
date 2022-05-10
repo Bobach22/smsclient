@@ -1,6 +1,6 @@
 {
-  "name": "bobach22/rapidprosms",
-  "description": "Package to use RapidPro sms services",
+  "name": "bobach22/sms",
+  "description": "Package to use  sms services",
   "require": {
     "guzzlehttp/guzzle": "^6.5|^7.0.1",
     "php": ">=7.1.3",
@@ -21,7 +21,7 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "Bobach22\\RapidProSms\\": "src/"
+      "Bobach22\\SmsClient\\": "src/"
     },
     "files": [
       "src/functions.php"
@@ -29,16 +29,16 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Bobach22\\RapidProSms\\Tests\\": "tests/"
+      "Bobach22\\SmsClient\\Tests\\": "tests/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Bobach22\\RapidProSms\\RapidProSmsServiceProvider"
+        "Bobach22\\SmsClient\\SmsServiceProvider"
       ],
       "aliases": {
-        "Sms": "Bobach22\\RapidProSms\\Facade\\SmsFacade"
+        "Sms": "Bobach22\\SmsClient\\Facade\\SmsFacade"
       }
     }
   }
