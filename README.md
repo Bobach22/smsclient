@@ -1,16 +1,16 @@
-## Package to use RapidPro sms services
+## Package to use sms services
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require bobach22/rapidprosms
+composer require bobach22/smsclient
 ```
 Publishing required files of package:
 
 ```bash
-php artisan vendor:publish --provider="Bobach22\RapidProSms\RapidProSmsServiceProvider"
+php artisan vendor:publish --provider="Bobach22\SmsClient\SmsServiceProvider"
 ```
 In config folder set params for sms.php
 
@@ -18,7 +18,7 @@ In config folder set params for sms.php
 ------
 
 ```php
-use Bobach22\RapidProSms\Facades\Sms;
+use Bobach22\SmsClient\Facades\Sms;
 
 $sms=Sms::send('any number','your message');
 // with array of numbers
