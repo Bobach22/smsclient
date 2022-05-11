@@ -1,5 +1,5 @@
 {
-  "name": "bobach22/sms",
+  "name": "bobach22/smsclient",
   "description": "Package to use  sms services",
   "require": {
     "guzzlehttp/guzzle": "^6.5|^7.0.1",
