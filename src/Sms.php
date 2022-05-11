@@ -71,10 +71,6 @@ class Sms {
         $countryCode = $this->config['params']['country_code'];
         $from        = $this->config['params']['from'];
 
-        if(!$countryCode) {
-            throw new Exception('Country code not provided');
-        }
-
         $to = $this->addCountryCode($to, $countryCode);
 
         foreach($headers as $key=>$value){
@@ -120,11 +116,18 @@ class Sms {
 
         $service_url = $type === Sms::TYPE_REGULAR? $url_regular : $url_bulk;
 
-        if(!$service_url) {
-            throw new Exception('Missing service provider url');
-        }
-
         try {
+
+
+            if(!$countryCode) {
+                throw new Exception('Country code not provided');
+            }
+    
+            
+            if(!$service_url) {
+                throw new Exception('Missing service provider url');
+            }
+
             $request=new Request($method,$service_url,$headers,$payload);
             $promise=$this->getClient()->sendAsync(
                 $request,
