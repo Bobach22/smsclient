@@ -156,6 +156,34 @@ class Sms {
     }
 
     /**
+     * Set Token from SMS-Provider
+     * @param string $token
+     * @return void
+     */
+    public function setToken(string $token) {
+        $this->token = $token;
+    }
+
+    /**
+     * Get token
+     * @param null 
+     * @return string 
+     */
+    public function getToken() {
+        return $this->token;
+    }
+
+    /**
+     * Refresh token
+     * @param string $newToken
+     * @return string
+     */
+    public function refreshToken(string $newToken):string{
+        $this->token = $newToken;
+        return $this->token;
+    }
+
+    /**
      * Get Client
      *
      * @return GuzzleHttp\Client
