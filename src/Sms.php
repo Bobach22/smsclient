@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Exception\RequestException;
 use Exception;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 
 class Sms {
 
@@ -161,7 +162,9 @@ class Sms {
      * @return void
      */
     public function setToken(string $token) {
-        $this->token = $token;
+        $this->token = Cache::remember('sms-token',$this->config['cache_expired_time'],function() use ($token) {
+            return $token;
+        });
     }
 
     /**
@@ -170,17 +173,11 @@ class Sms {
      * @return string 
      */
     public function getToken() {
-        return $this->token;
-    }
-
-    /**
-     * Refresh token
-     * @param string $newToken
-     * @return string
-     */
-    public function refreshToken(string $newToken):string{
-        $this->token = $newToken;
-        return $this->token;
+        if(Cache::has('sms-token')) {
+            return Cache::get('sms-token');
+        } else {
+            //request endpoint to get token and cache it use setToken()
+        }
     }
 
     /**
