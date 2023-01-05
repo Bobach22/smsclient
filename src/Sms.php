@@ -87,12 +87,6 @@ class Sms
 
         $to = $this->addCountryCode($to, $countryCode);
 
-        foreach ($headers as $key => $value) {
-            if ($key === 'Authorization') {
-                $headers[$key] = 'Token ' . $value;
-            }
-        }
-
         $numberKey = isset($this->config['params']['number_key']) && !empty($this->config['params']['number_key']) ? $this->config['params']['number_key'] : 'phone_number';
         $messageKey = isset($this->config['params']['number_key']) && !empty($this->config['params']['message_key']) ? $this->config['params']['message_key'] : 'message';
 
