@@ -13,8 +13,8 @@ return [
         'service_bulk_send_url'  => env('SMS_SERVICE_BULK_SEND_URL'),
         'method'                 => env('SMS_METHOD'),
         'from'                   => env('SMS_FROM'),
-        'email'                  => env('EMAIL'),
-        'password'               => env('PASSWORD'),
+        'email'                  => env('SMS_EMAIL'),
+        'password'               => env('SMS_PASSWORD'),
     ],
     'cache_expired_time' => env('SMS_TOKEN_EXPIRED_IN')
 ];
