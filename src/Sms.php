@@ -233,15 +233,15 @@ class Sms
     protected function auth(): string
     {
         try {
-            if (!isset($this->config['email']) || !isset($this->config['password'])) {
+            if (!$this->config['params']['email'] || !$this->config['params']['password']) {
                 throw new Exception("credentials not set up");
             }
-            $response = (new Client(['Content-Type' => 'application/json',]))->post(
-                $this->config['eskiz_auth'],
+            $response = (new Client(['Content-Type' => 'application/json']))->post(
+                $this->config['params']['eskiz_auth'],
                 [
                     'form_params' => [
-                        'email' => $this->config['email'],
-                        'password' => $this->config['password']
+                        'email' => $this->config['params']['email'],
+                        'password' => $this->config['params']['password']
                     ]
                 ]
             );
