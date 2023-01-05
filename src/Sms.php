@@ -215,10 +215,10 @@ class Sms
      * @return void
      * @throws Exception
      */
-    public function getToken()
+    public function getToken(): string
     {
         try {
-            Cache::remember('sms-token', $this->config['cache_expired_time'] - 3600, function () {
+            return Cache::remember('sms-token', $this->config['cache_expired_time'] - 3600, function () {
                 return $this->auth();
             });
         } catch (Exception $exception) {
