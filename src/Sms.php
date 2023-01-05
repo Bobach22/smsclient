@@ -79,7 +79,6 @@ class Sms
 
     public function send($to, $message, $dispatch_id = null)
     {
-
         $headers = $this->config['headers'];
         $headers["Authorization"] = "Bearer " . $this->getToken();
         $countryCode = $this->config['params']['country_code'];
@@ -87,7 +86,7 @@ class Sms
 
         $to = $this->addCountryCode($to, $countryCode);
 
-        $numberKey = isset($this->config['params']['number_key']) && !empty($this->config['params']['number_key']) ? $this->config['params']['number_key'] : 'phone_number';
+        $numberKey = isset($this->config['params']['number_key']) && !empty($this->config['params']['number_key']) ? $this->config['params']['number_key'] : 'mobile_phone';
         $messageKey = isset($this->config['params']['number_key']) && !empty($this->config['params']['message_key']) ? $this->config['params']['message_key'] : 'message';
 
         $type = NULL;
@@ -126,7 +125,6 @@ class Sms
 
         try {
 
-
             if (!$countryCode) {
                 throw new Exception('Country code not provided');
             }
@@ -135,19 +133,16 @@ class Sms
             if (!$service_url) {
                 throw new Exception('Missing service provider url');
             }
-
             $request = new Request($method, $service_url, $headers, $payload);
             $promise = $this->getClient()->sendAsync(
                 $request
             );
-
 
             $res = $promise->wait();
             $this->response_code = $res->getStatusCode();
             $this->response = new Response($res->getBody(), $res->getStatusCode(), $res->getHeaders());
 
         } catch (RequestException $e) {
-
             if ($e->hasResponse()) {
                 $response = $e->getResponse();
                 $this->response = new Response($response->getBody(), $response->getStatusCode(), $response->getHeaders());
@@ -162,54 +157,6 @@ class Sms
         }
         return $this;
     }
-
-    /**
-     * Add country code to mobile
-     *
-     * @param string|array $mobile
-     * @return string|array
-     */
-
-    private function addCountryCode($mobile, $country_code)
-    {
-
-        if (is_array($mobile)) {
-            array_walk($mobile, function (&$value, $key) use ($country_code) {
-                if (!$this->hasCountryCode($value, $country_code)) {
-                    $value = $country_code . $value;
-                }
-
-            });
-            return $mobile;
-        }
-        return $this->hasCountryCode($mobile, $country_code) ? $mobile : $country_code . $mobile;
-    }
-
-    /**
-     * Check phone number(s) for country code
-     *
-     * @param string $mobile
-     * @return boolean
-     */
-
-    private function hasCountryCode($mobile, $country_code)
-    {
-
-        if (strlen($mobile) === 12 && strpos($mobile, $country_code) !== false) {
-            return true;
-        }
-        return false;
-
-    }
-
-    /**
-     * @return Client
-     */
-    public function getClient(): Client
-    {
-        return self::$client;
-    }
-
 
     /**
      * @return void
@@ -259,6 +206,53 @@ class Sms
         } catch (GuzzleException $exception) {
             throw new Exception($exception->getMessage());
         }
+    }
+
+    /**
+     * Add country code to mobile
+     *
+     * @param string|array $mobile
+     * @return string|array
+     */
+
+    private function addCountryCode($mobile, $country_code)
+    {
+
+        if (is_array($mobile)) {
+            array_walk($mobile, function (&$value, $key) use ($country_code) {
+                if (!$this->hasCountryCode($value, $country_code)) {
+                    $value = $country_code . $value;
+                }
+
+            });
+            return $mobile;
+        }
+        return $this->hasCountryCode($mobile, $country_code) ? $mobile : $country_code . $mobile;
+    }
+
+    /**
+     * Check phone number(s) for country code
+     *
+     * @param string $mobile
+     * @return boolean
+     */
+
+    private function hasCountryCode($mobile, $country_code)
+    {
+
+        if (strlen($mobile) === 12 && strpos($mobile, $country_code) !== false) {
+            return true;
+        }
+        return false;
+
+    }
+
+    /**
+     * @return Client
+     */
+    public function getClient(): Client
+    {
+        return self::$client;
     }
 
     /**
